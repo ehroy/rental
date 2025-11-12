@@ -7,17 +7,32 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Booking;
 use App\Models\Category;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
         // Buat admin user
-        User::factory()->create([
-            'name' => 'admin',
-            'email' => 'admin@admin.com',
+       $adminRole = Role::firstOrCreate(['name' => 'admin', 'guard_name' => 'web']);
+
+        // (Opsional) Buat beberapa permission dasar
+        Permission::firstOrCreate(['name' => 'manage users', 'guard_name' => 'web']);
+        Permission::firstOrCreate(['name' => 'manage products', 'guard_name' => 'web']);
+
+        // Tambahkan permission ke role
+        $adminRole->givePermissionTo(['manage users', 'manage products']);
+
+        // Buat user admin
+        $admin = User::factory()->create([
+            'name' => 'Admin',
+            'email' => 'admin@gmail.com',
             'password' => bcrypt('password'),
         ]);
+
+        // Tambahkan role admin ke user
+        $admin->assignRole($adminRole);
 
         // Jalankan CategorySeeder terlebih dahulu
         $this->call(CategorySeeder::class);

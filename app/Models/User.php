@@ -47,6 +47,10 @@ class User extends Authenticatable implements FilamentUser
         'password' => 'hashed',
     ];
     
-    
+    public function canAccessPanel(\Filament\Panel $panel): bool
+    {
+        // Misal hanya admin yang bisa login ke panel
+        return $this->hasRole('admin');
+    }
     
 }

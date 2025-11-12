@@ -214,8 +214,8 @@ const addToCart = () => {
 
     // Buat cart item
     const cartItem = {
-        id: Date.now(), // Unique ID untuk cart item
-        product_id: product.value.id,
+        id: product.value.id, // Unique ID untuk cart item
+        product_id: Date.now(),
         product_nama: product.value.nama,
         product_gambar: product.value.gambar_url,
         product_harga: product.value.harga_sewa_perhari,

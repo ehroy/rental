@@ -1,40 +1,66 @@
 <script setup>
 import Footer from "@/Components/Footer.vue";
 import Navbar from "@/Components/Navbar.vue";
-import { ref, computed, inject } from "vue";
-import { Link, usePage } from "@inertiajs/vue3";
+import { ref, computed, inject, watch } from "vue";
+import { Link, usePage, router } from "@inertiajs/vue3";
 
-const { props } = usePage();
-const products = ref(props.products || []);
+const page = usePage();
+
+// Gunakan computed agar reactive terhadap perubahan props
+const products = computed(() => page.props.products || []);
+const categories = computed(() => page.props.categories || []);
+const filters = computed(() => page.props.filters || {});
 
 const isMobileMenuOpen = ref(false);
-const searchQuery = ref("");
-const selectedCategory = ref("all");
+const searchQuery = ref(filters.value.search || "");
+const selectedCategory = ref(filters.value.category_id || "");
+const isLoading = ref(false); // Tambahkan loading state
 const helpers = inject("helpers");
-console.log(helpers.imageUrl("01K9SAKX90WSW4KYS47XPY1XGC.jpg"));
-const categories = [
-    { id: "all", name: "Semua Produk" },
-    { id: "mirrorless", name: "Mirrorless" },
-    { id: "dslr", name: "DSLR" },
-    { id: "action", name: "Action Camera" },
-    { id: "lens", name: "Lensa" },
-];
 
-const filteredProducts = computed(() => {
-    let result = products.value;
+// Watch untuk perubahan search query dengan debounce
+let searchTimeout = null;
+watch(searchQuery, (newValue) => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+        applyFilters();
+    }, 500);
+});
 
-    // Filter by search
-    if (searchQuery.value) {
-        const query = searchQuery.value.toLowerCase();
-        result = result.filter(
-            (product) =>
-                product.nama.toLowerCase().includes(query) ||
-                product.deskripsi.toLowerCase().includes(query)
-        );
+// Watch untuk perubahan kategori
+watch(selectedCategory, (newValue) => {
+    applyFilters();
+});
+
+// Fungsi untuk apply filters
+const applyFilters = () => {
+    const params = {};
+
+    if (selectedCategory.value) {
+        params.category_id = selectedCategory.value;
     }
 
-    return result;
-});
+    if (searchQuery.value) {
+        params.search = searchQuery.value;
+    }
+
+    isLoading.value = true;
+
+    router.get(page.url, params, {
+        preserveState: true,
+        preserveScroll: true,
+        only: ["products", "filters"], // Hanya reload products dan filters
+        onFinish: () => {
+            isLoading.value = false;
+        },
+    });
+};
+
+// Reset filters
+const resetFilters = () => {
+    searchQuery.value = "";
+    selectedCategory.value = "";
+    applyFilters();
+};
 
 const formatCurrency = (value) => {
     return new Intl.NumberFormat("id-ID", {
@@ -49,6 +75,7 @@ const formatCurrency = (value) => {
     <div class="min-h-screen bg-gray-50">
         <!-- Navbar -->
         <Navbar />
+
         <!-- Hero Section -->
         <section
             class="relative bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white overflow-hidden"
@@ -87,11 +114,14 @@ const formatCurrency = (value) => {
                                 type="text"
                                 placeholder="Cari kamera, lensa, atau aksesoris..."
                                 class="w-full px-6 py-4 pr-32 rounded-full text-gray-800 shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-300"
+                                :disabled="isLoading"
                             />
                             <button
-                                class="absolute right-2 top-2 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition"
+                                @click="applyFilters"
+                                :disabled="isLoading"
+                                class="absolute right-2 top-2 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition disabled:opacity-50"
                             >
-                                Cari
+                                {{ isLoading ? "Mencari..." : "Cari" }}
                             </button>
                         </div>
                     </div>
@@ -138,35 +168,65 @@ const formatCurrency = (value) => {
         <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <!-- Category Filter -->
             <div class="mb-8">
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">
-                    Kategori Produk
-                </h2>
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-2xl font-bold text-gray-800">
+                        Kategori Produk
+                    </h2>
+                    <button
+                        v-if="selectedCategory || searchQuery"
+                        @click="resetFilters"
+                        :disabled="isLoading"
+                        class="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center gap-2 disabled:opacity-50"
+                    >
+                        <span>🔄</span> Reset Filter
+                    </button>
+                </div>
                 <div class="flex flex-wrap gap-3">
                     <button
-                        v-for="category in categories"
-                        :key="category.id"
-                        @click="selectedCategory = category.id"
+                        @click="selectedCategory = ''"
+                        :disabled="isLoading"
                         :class="[
-                            'px-6 py-2 rounded-full font-medium transition',
-                            selectedCategory === category.id
+                            'px-6 py-2 rounded-full font-medium transition disabled:opacity-50',
+                            selectedCategory === ''
                                 ? 'bg-blue-600 text-white shadow-lg'
                                 : 'bg-white text-gray-600 hover:bg-gray-100',
                         ]"
                     >
-                        {{ category.name }}
+                        Semua Kategori
+                    </button>
+                    <button
+                        v-for="category in categories"
+                        :key="category.id"
+                        @click="selectedCategory = category.id"
+                        :disabled="isLoading"
+                        :class="[
+                            'px-6 py-2 rounded-full font-medium transition disabled:opacity-50',
+                            selectedCategory == category.id
+                                ? 'bg-blue-600 text-white shadow-lg'
+                                : 'bg-white text-gray-600 hover:bg-gray-100',
+                        ]"
+                    >
+                        {{ category.nama }}
                     </button>
                 </div>
             </div>
 
+            <!-- Loading Indicator -->
+            <div v-if="isLoading" class="text-center py-8">
+                <div
+                    class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-blue-600 border-t-transparent"
+                ></div>
+                <p class="mt-4 text-gray-600">Memuat produk...</p>
+            </div>
+
             <!-- Products Header -->
             <div
+                v-else
                 class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6"
             >
                 <h2 class="text-2xl font-bold text-gray-800 mb-4 sm:mb-0">
                     Produk Tersedia
-                    <span class="text-blue-600"
-                        >({{ filteredProducts.length }})</span
-                    >
+                    <span class="text-blue-600">({{ products.length }})</span>
                 </h2>
 
                 <select
@@ -181,7 +241,7 @@ const formatCurrency = (value) => {
 
             <!-- Empty State -->
             <div
-                v-if="filteredProducts.length === 0"
+                v-if="!isLoading && products.length === 0"
                 class="text-center py-20 bg-white rounded-2xl shadow"
             >
                 <span class="text-7xl mb-4 block">📭</span>
@@ -192,10 +252,7 @@ const formatCurrency = (value) => {
                     Coba kata kunci lain atau lihat semua produk
                 </p>
                 <button
-                    @click="
-                        searchQuery = '';
-                        selectedCategory = 'all';
-                    "
+                    @click="resetFilters"
                     class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
                 >
                     Lihat Semua Produk
@@ -204,82 +261,86 @@ const formatCurrency = (value) => {
 
             <!-- Products Grid -->
             <div
+                v-else-if="!isLoading"
                 class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"
             >
-                <div
-                    v-for="product in filteredProducts"
-                    :key="product.id"
-                    class="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden group"
-                >
-                    <div class="relative overflow-hidden h-56">
-                        <img
-                            :src="helpers.imageUrl(product.gambar)"
-                            :alt="product.nama"
-                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                            type="image/webp"
-                        />
-                        <div
-                            class="absolute top-4 right-4 bg-white px-3 py-1 rounded-full shadow-lg"
-                        >
-                            <span
-                                class="text-green-600 text-sm font-bold flex items-center"
+                <transition-group name="fade">
+                    <div
+                        v-for="product in products"
+                        :key="product.id"
+                        class="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden group"
+                    >
+                        <div class="relative overflow-hidden h-56">
+                            <img
+                                :src="helpers.imageUrl(product.gambar)"
+                                :alt="product.nama"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            />
+                            <div
+                                class="absolute top-4 right-4 bg-white px-3 py-1 rounded-full shadow-lg"
                             >
                                 <span
-                                    class="w-2 h-2 bg-green-500 rounded-full mr-2"
-                                ></span>
-                                Tersedia
-                            </span>
-                        </div>
-                        <div
-                            class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4"
-                        >
-                            <span
-                                class="text-white text-xs bg-blue-600 px-3 py-1 rounded-full"
-                            >
-                                Mirrorless
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="p-6">
-                        <h3
-                            class="text-xl font-bold mb-2 text-gray-800 group-hover:text-blue-600 transition"
-                        >
-                            {{ product.nama }}
-                        </h3>
-                        <p class="text-gray-600 mb-4 text-sm line-clamp-2">
-                            {{ product.deskripsi }}
-                        </p>
-
-                        <div class="flex items-center justify-between mb-4">
-                            <div>
-                                <p class="text-3xl font-bold text-blue-600">
-                                    {{
-                                        formatCurrency(
-                                            product.harga_sewa_perhari
-                                        )
-                                    }}
-                                </p>
-                                <p class="text-xs text-gray-500">per hari</p>
-                            </div>
-                            <div class="text-right">
-                                <div
-                                    class="flex items-center text-yellow-500 mb-1"
+                                    class="text-green-600 text-sm font-bold flex items-center"
                                 >
-                                    ⭐⭐⭐⭐⭐
-                                </div>
-                                <p class="text-xs text-gray-500">128 ulasan</p>
+                                    <span
+                                        class="w-2 h-2 bg-green-500 rounded-full mr-2"
+                                    ></span>
+                                    Tersedia
+                                </span>
+                            </div>
+                            <div
+                                class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4"
+                            >
+                                <span
+                                    class="text-white text-xs bg-blue-600 px-3 py-1 rounded-full"
+                                >
+                                    {{ product.category?.nama || "Kategori" }}
+                                </span>
                             </div>
                         </div>
 
-                        <Link
-                            :href="`/rental/product/${product.id}`"
-                            class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-colors shadow-lg hover:shadow-xl"
-                        >
-                            Lihat Detail & Booking
-                        </Link>
+                        <div class="p-6">
+                            <h3
+                                class="text-xl font-bold mb-2 text-gray-800 group-hover:text-blue-600 transition"
+                            >
+                                {{ product.nama }}
+                            </h3>
+                            <p class="text-gray-600 mb-4 text-sm line-clamp-2">
+                                {{ product.deskripsi }}
+                            </p>
+
+                            <div class="flex items-center justify-between mb-4">
+                                <div>
+                                    <p class="text-3xl font-bold text-blue-600">
+                                        {{
+                                            formatCurrency(
+                                                product.harga_sewa_perhari
+                                            )
+                                        }}
+                                    </p>
+                                    <p class="text-xs text-gray-500">
+                                        per hari
+                                    </p>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-xs text-gray-500">
+                                        {{
+                                            product.bookings_count || 0
+                                        }}
+                                        booking
+                                    </div>
+                                </div>
+                            </div>
+
+                            <Link
+                                :href="`/rental/product/${product.id}`"
+                                class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-colors shadow-lg hover:shadow-xl"
+                            >
+                                Lihat Detail & Booking
+                            </Link>
+                        </div>
                     </div>
-                </div>
+                </transition-group>
             </div>
 
             <!-- CTA Section -->
@@ -321,5 +382,25 @@ const formatCurrency = (value) => {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+}
+
+/* Transition untuk smooth animation */
+.fade-enter-active,
+.fade-leave-active {
+    transition: all 0.3s ease;
+}
+
+.fade-enter-from {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.fade-leave-to {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+.fade-move {
+    transition: transform 0.3s ease;
 }
 </style>
