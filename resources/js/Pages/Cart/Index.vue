@@ -1,8 +1,8 @@
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, inject } from "vue";
 import { Link, router } from "@inertiajs/vue3";
 import Navbar from "@/Components/Navbar.vue";
-
+const helpers = inject("helpers");
 // Data keranjang dari localStorage
 const cartItems = ref([]);
 const showCheckoutForm = ref(false);
@@ -22,11 +22,17 @@ onMounted(() => {
 
 // Total harga keseluruhan berdasarkan tanggal masing-masing item
 const totalHarga = computed(() => {
-    return cartItems.value.reduce((sum, item) => {
-        const days = calculateDays(item.tanggal_mulai, item.tanggal_selesai);
-        return sum + item.harga_sewa_perhari * item.jumlah * days;
+    if (!cartItems.value || cartItems.value.length === 0) return 0;
+    console.log(cartItems);
+    return cartItems.value.reduce((total, item) => {
+        const harga = Number(item.product_harga) || 0;
+        const jumlah = Number(item.jumlah) || 1;
+        const days =
+            calculateDays(item.tanggal_mulai, item.tanggal_selesai) || 1;
+        return total + harga * jumlah * days;
     }, 0);
 });
+console.log(totalHarga);
 
 // Total item
 const totalItems = computed(() => {
@@ -132,9 +138,9 @@ const formatDate = (date) => {
             <!-- Header -->
             <div class="mb-6 sm:mb-8">
                 <div class="flex items-center gap-3 mb-2">
-                    <div class="bg-blue-600 p-2 rounded-lg">
+                    <div class="p-2 rounded-lg">
                         <svg
-                            class="w-6 h-6 text-white"
+                            class="w-7 h-7 text-gray-600"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -147,7 +153,7 @@ const formatDate = (date) => {
                             ></path>
                         </svg>
                     </div>
-                    <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">
+                    <h1 class="text-2xl sm:text-3xl font-bold text-gray-600">
                         Keranjang Sewa
                     </h1>
                 </div>
@@ -227,17 +233,20 @@ const formatDate = (date) => {
                                 <div class="relative flex-shrink-0">
                                     <img
                                         :src="
-                                            item.gambar
-                                                ? '/storage/' + item.gambar
+                                            helpers.imageUrl(
+                                                item.product_gambar
+                                            )
+                                                ? '/storage/' +
+                                                  item.product_gambar
                                                 : '/img/no-image.png'
                                         "
                                         alt="Gambar Produk"
                                         class="w-full sm:w-32 h-40 sm:h-32 object-cover rounded-lg group-hover:scale-105 transition-transform duration-300"
                                     />
                                     <div
-                                        class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full font-semibold"
+                                        class="absolute top-2 right-2 bg-green-800 text-white text-xs px-2 py-1 rounded-full font-semibold"
                                     >
-                                        #{{ item.id }}
+                                        {{ item.product_id }}
                                     </div>
                                 </div>
 
@@ -269,18 +278,18 @@ const formatDate = (date) => {
                                                     ></path>
                                                 </svg>
                                                 <span
-                                                    class="font-semibold text-blue-600"
+                                                    class="font-semibold text-gray-600"
                                                 >
                                                     Rp
                                                     {{
                                                         Number(
-                                                            item.harga_sewa_perhari
+                                                            item.product_harga
                                                         ).toLocaleString(
                                                             "id-ID"
                                                         )
                                                     }}
                                                 </span>
-                                                <span class="text-gray-500"
+                                                <span class="text-gray-600"
                                                     >/ hari</span
                                                 >
                                             </div>
@@ -381,68 +390,6 @@ const formatDate = (date) => {
                                     <div
                                         class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
                                     >
-                                        <div class="flex items-center gap-3">
-                                            <span
-                                                class="text-sm text-gray-600 font-medium"
-                                                >Jumlah:</span
-                                            >
-                                            <div
-                                                class="flex items-center bg-gray-100 rounded-lg overflow-hidden"
-                                            >
-                                                <button
-                                                    @click="
-                                                        updateQuantity(
-                                                            item.id,
-                                                            -1
-                                                        )
-                                                    "
-                                                    class="px-3 py-2 hover:bg-gray-200 transition-colors"
-                                                >
-                                                    <svg
-                                                        class="w-4 h-4"
-                                                        fill="none"
-                                                        stroke="currentColor"
-                                                        viewBox="0 0 24 24"
-                                                    >
-                                                        <path
-                                                            stroke-linecap="round"
-                                                            stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M20 12H4"
-                                                        ></path>
-                                                    </svg>
-                                                </button>
-                                                <span
-                                                    class="px-4 py-2 font-semibold text-gray-800 min-w-[3rem] text-center"
-                                                >
-                                                    {{ item.jumlah }}
-                                                </span>
-                                                <button
-                                                    @click="
-                                                        updateQuantity(
-                                                            item.id,
-                                                            1
-                                                        )
-                                                    "
-                                                    class="px-3 py-2 hover:bg-gray-200 transition-colors"
-                                                >
-                                                    <svg
-                                                        class="w-4 h-4"
-                                                        fill="none"
-                                                        stroke="currentColor"
-                                                        viewBox="0 0 24 24"
-                                                    >
-                                                        <path
-                                                            stroke-linecap="round"
-                                                            stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M12 4v16m8-8H4"
-                                                        ></path>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </div>
-
                                         <div class="flex items-center gap-2">
                                             <!-- Desktop Remove Button -->
                                             <button
@@ -464,26 +411,6 @@ const formatDate = (date) => {
                                                 </svg>
                                                 Hapus
                                             </button>
-
-                                            <button
-                                                @click="goToBooking(item)"
-                                                class="flex-1 sm:flex-none flex items-center justify-center gap-1 px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300 text-sm font-medium shadow-md hover:shadow-lg"
-                                            >
-                                                <svg
-                                                    class="w-4 h-4"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    viewBox="0 0 24 24"
-                                                >
-                                                    <path
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                                                    ></path>
-                                                </svg>
-                                                Edit
-                                            </button>
                                         </div>
                                     </div>
 
@@ -498,12 +425,12 @@ const formatDate = (date) => {
                                                 >Subtotal:</span
                                             >
                                             <span
-                                                class="font-bold text-gray-900 text-lg"
+                                                class="font-bold text-gray-600 text-lg"
                                             >
                                                 Rp
                                                 {{
-                                                    getItemSubtotal(
-                                                        item
+                                                    Number(
+                                                        item.total_harga
                                                     ).toLocaleString("id-ID")
                                                 }}
                                             </span>
@@ -517,12 +444,12 @@ const formatDate = (date) => {
 
                 <!-- Summary Sidebar -->
                 <div class="lg:col-span-1">
-                    <div class="bg-white rounded-xl shadow-lg p-6 sticky top-6">
+                    <div class="bg-white rounded-xl shadow-lg p-6 sticky top-1">
                         <h3
-                            class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2"
+                            class="text-xl font-bold text-gray-600 mb-6 flex items-center gap-2"
                         >
                             <svg
-                                class="w-5 h-5 text-blue-600"
+                                class="w-5 h-5 text-gray-600"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
@@ -549,11 +476,11 @@ const formatDate = (date) => {
                             <div class="border-t pt-4">
                                 <div class="flex justify-between items-center">
                                     <span
-                                        class="text-lg font-bold text-gray-900"
+                                        class="text-lg font-bold text-gray-600"
                                         >Total Pembayaran:</span
                                     >
                                     <span
-                                        class="text-2xl font-bold text-blue-600"
+                                        class="text-2xl font-bold text-gray-600"
                                     >
                                         Rp
                                         {{ totalHarga.toLocaleString("id-ID") }}

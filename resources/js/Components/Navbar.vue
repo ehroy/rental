@@ -17,12 +17,6 @@ onMounted(() => {
 
 const navLinks = [
     { href: "/", label: "Beranda", icon: "mdi-home-outline" },
-    {
-        href: "/cart",
-        label: "Keranjang",
-        icon: "mdi-cart-outline",
-        isCart: true,
-    },
     { href: "/about", label: "Tentang", icon: "mdi-information-outline" },
     { href: "/contact", label: "Contact", icon: "mdi-account-outline" },
 ];
@@ -31,7 +25,7 @@ const navLinks = [
 <template>
     <!-- Desktop Navbar -->
     <nav
-        class="hidden md:block fixed top-0 w-full bg-gradient-to-r from-blue-600 via-blue-500 to-purple-600 shadow-xl z-50"
+        class="hidden md:block fixed top-0 w-full bg-gradient-to-r bg-[#FFFFFF] text-gray-600 shadow-xl z-50"
     >
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
@@ -49,28 +43,28 @@ const navLinks = [
                     </div>
                     <div>
                         <span
-                            class="text-2xl font-bold text-white tracking-tight"
+                            class="text-2xl font-bold text-gray-600 tracking-tight"
                         >
-                            Quick<span class="text-yellow-300">Rental</span>
+                            Quick<span class="text-yellow-600">Rental</span>
                         </span>
-                        <span class="text-xs text-blue-100 block -mt-1">
+                        <span class="text-xs text-gray-600 block -mt-1">
                             Sewa Kamera Profesional
                         </span>
                     </div>
                 </Link>
 
                 <!-- Desktop Menu -->
-                <div class="flex items-center space-x-2">
+                <div class="flex items-center space-x-5">
                     <Link
                         v-for="link in navLinks.filter((l) => !l.isCart)"
                         :key="link.href"
                         :href="link.href"
                         :aria-label="link.label"
                         :class="[
-                            'flex items-center space-x-2 px-4 py-2 rounded-lg transition-all font-medium',
+                            'flex items-center space-x-2 px-4 py-2 transition-all font-medium border-b-2 border-transparent',
                             currentPath === link.href
-                                ? 'bg-white text-blue-600 shadow-lg'
-                                : 'text-white hover:bg-white/20',
+                                ? 'border-gray-600 text-gray-600' // aktif: garis bawah & teks aksen
+                                : 'text-gray-600 hover:text-gray-700 hover:border-gray-700/70', // normal: putih, berubah saat hover
                         ]"
                     >
                         <i :class="['mdi', link.icon, 'text-xl']"></i>
@@ -84,7 +78,7 @@ const navLinks = [
                     <Link
                         href="/cart"
                         aria-label="Shopping Cart"
-                        class="flex items-center space-x-2 px-4 py-2 hover:bg-white/20 rounded-lg transition text-white"
+                        class="flex items-center space-x-2 px-4 py-2 hover:bg-white/20 rounded-lg transition text-gray-600"
                     >
                         <div class="relative">
                             <i class="mdi mdi-cart-outline text-2xl"></i>
@@ -117,21 +111,27 @@ const navLinks = [
             <span class="text-3xl">📷</span>
             <div>
                 <span class="text-lg font-bold text-gray-800">
-                    Quick<span class="text-blue-600">Rental</span>
+                    Quick<span class="text-yellow-600">Rental</span>
                 </span>
             </div>
         </Link>
 
         <!-- Cart Icon (Info Only) -->
-        <div class="relative">
-            <i class="mdi mdi-cart-outline text-2xl text-gray-400"></i>
-            <span
-                v-if="cartCount > 0"
-                class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center"
-            >
-                {{ cartCount }}
-            </span>
-        </div>
+        <Link
+            href="/cart"
+            aria-label="Shopping Cart"
+            class="flex items-center space-x-2 px-4 py-2 hover:bg-white/20 rounded-lg transition text-gray-600"
+        >
+            <div class="relative">
+                <i class="mdi mdi-cart-outline text-2xl text-gray-400"></i>
+                <span
+                    v-if="cartCount > 0"
+                    class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center"
+                >
+                    {{ cartCount }}
+                </span>
+            </div>
+        </Link>
     </div>
 
     <!-- Mobile Top Spacer -->
@@ -142,7 +142,7 @@ const navLinks = [
         class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 shadow-2xl"
         style="padding-bottom: env(safe-area-inset-bottom)"
     >
-        <div class="grid grid-cols-5 h-16">
+        <div class="grid grid-cols-3 h-16">
             <!-- Navigation Items -->
             <Link
                 v-for="link in navLinks"
@@ -208,7 +208,6 @@ const navLinks = [
     </div>
 
     <!-- Mobile Bottom Spacer -->
-    <div class="md:hidden h-16"></div>
 </template>
 
 <style scoped>

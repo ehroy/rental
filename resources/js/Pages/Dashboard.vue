@@ -72,36 +72,28 @@ const formatCurrency = (value) => {
 </script>
 
 <template>
-    <div class="min-h-screen bg-gray-50">
+    <div class="min-h-screen bg-[#FFFFFF] text-[#ebebeb]">
         <!-- Navbar -->
         <Navbar />
 
         <!-- Hero Section -->
         <section
-            class="relative bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white overflow-hidden"
+            class="relative bg-cover bg-center bg-no-repeat overflow-hidden"
+            style="background-image: url('/images/hero1.png')"
         >
-            <div class="absolute inset-0 opacity-10">
-                <div
-                    class="absolute transform rotate-45 -top-32 -right-32 w-96 h-96 bg-white rounded-full"
-                ></div>
-                <div
-                    class="absolute transform -rotate-12 -bottom-32 -left-32 w-96 h-96 bg-white rounded-full"
-                ></div>
-            </div>
+            <div class="absolute inset-0 bg-black/50"></div>
 
             <div
                 class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24"
             >
                 <div class="text-center max-w-3xl mx-auto">
                     <h1
-                        class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
+                        class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight font-poppins"
                     >
                         Sewa Kamera Profesional
-                        <span class="block text-blue-200 mt-2"
-                            >Dengan Mudah</span
-                        >
+                        <span class="block mt-2">Dengan Mudah</span>
                     </h1>
-                    <p class="text-lg md:text-xl text-blue-100 mb-8">
+                    <p class="text-lg md:text-xl mb-8">
                         Kualitas terbaik untuk momen terbaik Anda. Ribuan
                         pelanggan puas telah mempercayai kami.
                     </p>
@@ -113,13 +105,13 @@ const formatCurrency = (value) => {
                                 v-model="searchQuery"
                                 type="text"
                                 placeholder="Cari kamera, lensa, atau aksesoris..."
-                                class="w-full px-6 py-4 pr-32 rounded-full text-gray-800 shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-300"
+                                class="w-full px-6 py-4 pr-32 rounded-full shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-300"
                                 :disabled="isLoading"
                             />
                             <button
                                 @click="applyFilters"
                                 :disabled="isLoading"
-                                class="absolute right-2 top-2 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition disabled:opacity-50"
+                                class="absolute right-2 top-2 px-6 py-2 text-[#CCCCCC] rounded-full font-medium transition disabled:opacity-50"
                             >
                                 {{ isLoading ? "Mencari..." : "Cari" }}
                             </button>
@@ -127,7 +119,9 @@ const formatCurrency = (value) => {
                     </div>
 
                     <!-- Features -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+                    <div
+                        class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 text-[#CCCCCC]"
+                    >
                         <div
                             class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6"
                         >
@@ -135,7 +129,7 @@ const formatCurrency = (value) => {
                             <h3 class="font-bold text-lg mb-2">
                                 Garansi Kualitas
                             </h3>
-                            <p class="text-blue-100 text-sm">
+                            <p class="text-sm">
                                 Peralatan terawat & berkualitas tinggi
                             </p>
                         </div>
@@ -144,7 +138,7 @@ const formatCurrency = (value) => {
                         >
                             <span class="text-4xl mb-3 block">⚡</span>
                             <h3 class="font-bold text-lg mb-2">Proses Cepat</h3>
-                            <p class="text-blue-100 text-sm">
+                            <p class="text-sm">
                                 Booking online, ambil langsung
                             </p>
                         </div>
@@ -155,9 +149,7 @@ const formatCurrency = (value) => {
                             <h3 class="font-bold text-lg mb-2">
                                 Harga Terjangkau
                             </h3>
-                            <p class="text-blue-100 text-sm">
-                                Harga sewa mulai 50rb/hari
-                            </p>
+                            <p class="text-sm">Harga sewa mulai 50rb/hari</p>
                         </div>
                     </div>
                 </div>
@@ -176,34 +168,39 @@ const formatCurrency = (value) => {
                         v-if="selectedCategory || searchQuery"
                         @click="resetFilters"
                         :disabled="isLoading"
-                        class="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center gap-2 disabled:opacity-50"
+                        class="text-sm text-gray-600 hover:text-gray-800 font-medium flex items-center gap-2 disabled:opacity-50"
                     >
-                        <span>🔄</span> Reset Filter
+                        Reset Filter
                     </button>
                 </div>
-                <div class="flex flex-wrap gap-3">
-                    <button
-                        @click="selectedCategory = ''"
-                        :disabled="isLoading"
-                        :class="[
-                            'px-6 py-2 rounded-full font-medium transition disabled:opacity-50',
-                            selectedCategory === ''
-                                ? 'bg-blue-600 text-white shadow-lg'
-                                : 'bg-white text-gray-600 hover:bg-gray-100',
-                        ]"
+                <div class="flex flex-wrap gap-6 border-b border-gray-200 pb-2">
+                    <!-- Semua kategori -->
+                    <Link href="/">
+                        <button
+                            @click="selectedCategory = ''"
+                            :disabled="isLoading"
+                            :class="[
+                                'relative pb-2 font-medium transition disabled:opacity-50 text-base',
+                                selectedCategory === ''
+                                    ? 'text-[#333333] after:content-[\'\'] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-full after:bg-[#E69A00]'
+                                    : 'text-[#333333] hover:text-[#E69A00]',
+                            ]"
+                        >
+                            Semua Kategori
+                        </button></Link
                     >
-                        Semua Kategori
-                    </button>
+
+                    <!-- Kategori lainnya -->
                     <button
                         v-for="category in categories"
                         :key="category.id"
                         @click="selectedCategory = category.id"
                         :disabled="isLoading"
                         :class="[
-                            'px-6 py-2 rounded-full font-medium transition disabled:opacity-50',
+                            'relative pb-2 font-medium transition disabled:opacity-50 text-base',
                             selectedCategory == category.id
-                                ? 'bg-blue-600 text-white shadow-lg'
-                                : 'bg-white text-gray-600 hover:bg-gray-100',
+                                ? 'text-[#333333] after:content-[\'\'] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-full after:bg-[#E69A00]'
+                                : 'text-[#333333] hover:text-[#E69A00]',
                         ]"
                     >
                         {{ category.nama }}
@@ -216,7 +213,7 @@ const formatCurrency = (value) => {
                 <div
                     class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-blue-600 border-t-transparent"
                 ></div>
-                <p class="mt-4 text-gray-600">Memuat produk...</p>
+                <p class="mt-4 text-[#333333]">Memuat produk...</p>
             </div>
 
             <!-- Products Header -->
@@ -224,19 +221,10 @@ const formatCurrency = (value) => {
                 v-else
                 class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6"
             >
-                <h2 class="text-2xl font-bold text-gray-800 mb-4 sm:mb-0">
+                <h2 class="text-2xl font-bold text-[#333333] mb-4 sm:mb-0">
                     Produk Tersedia
-                    <span class="text-blue-600">({{ products.length }})</span>
+                    <span class="">({{ products.length }})</span>
                 </h2>
-
-                <select
-                    class="px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
-                >
-                    <option>Urutkan: Terpopuler</option>
-                    <option>Harga: Rendah ke Tinggi</option>
-                    <option>Harga: Tinggi ke Rendah</option>
-                    <option>Terbaru</option>
-                </select>
             </div>
 
             <!-- Empty State -->
@@ -248,12 +236,12 @@ const formatCurrency = (value) => {
                 <h3 class="text-2xl font-bold text-gray-800 mb-2">
                     Produk tidak ditemukan
                 </h3>
-                <p class="text-gray-600 mb-6">
+                <p class="text-[#333333] mb-6">
                     Coba kata kunci lain atau lihat semua produk
                 </p>
                 <button
                     @click="resetFilters"
-                    class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
+                    class="px-6 py-3 bg-blue-600 text-[#ebebeb] rounded-lg hover:bg-blue-700 font-medium"
                 >
                     Lihat Semua Produk
                 </button>
@@ -268,9 +256,9 @@ const formatCurrency = (value) => {
                     <div
                         v-for="product in products"
                         :key="product.id"
-                        class="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden group"
+                        class="bg-white shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden group"
                     >
-                        <div class="relative overflow-hidden h-56">
+                        <div class="relative overflow-hidden h-64 md:h-72">
                             <img
                                 :src="helpers.imageUrl(product.gambar)"
                                 :alt="product.nama"
@@ -280,10 +268,10 @@ const formatCurrency = (value) => {
                                 class="absolute top-4 right-4 bg-white px-3 py-1 rounded-full shadow-lg"
                             >
                                 <span
-                                    class="text-green-600 text-sm font-bold flex items-center"
+                                    class="text-green-800 text-sm font-bold flex items-center"
                                 >
                                     <span
-                                        class="w-2 h-2 bg-green-500 rounded-full mr-2"
+                                        class="w-2 h-2 bg-green-800 rounded-full mr-2"
                                     ></span>
                                     Tersedia
                                 </span>
@@ -292,26 +280,28 @@ const formatCurrency = (value) => {
                                 class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4"
                             >
                                 <span
-                                    class="text-white text-xs bg-blue-600 px-3 py-1 rounded-full"
+                                    class="text-[#ebebeb] text-xs bg-green-800 px-3 py-1 rounded-full"
                                 >
                                     {{ product.category?.nama || "Kategori" }}
                                 </span>
                             </div>
                         </div>
 
-                        <div class="p-6">
+                        <div class="p-4 bg-[#f5f5f5]">
                             <h3
-                                class="text-xl font-bold mb-2 text-gray-800 group-hover:text-blue-600 transition"
+                                class="text-xl font-bold mb-2 text-[#333333] group-hover:text-gray-700 transition"
                             >
                                 {{ product.nama }}
                             </h3>
-                            <p class="text-gray-600 mb-4 text-sm line-clamp-2">
+                            <p class="text-[#333333] mb-4 text-sm line-clamp-2">
                                 {{ product.deskripsi }}
                             </p>
 
                             <div class="flex items-center justify-between mb-4">
                                 <div>
-                                    <p class="text-3xl font-bold text-blue-600">
+                                    <p
+                                        class="text-3xl font-bold text-[#333333]"
+                                    >
                                         {{
                                             formatCurrency(
                                                 product.harga_sewa_perhari
@@ -324,9 +314,7 @@ const formatCurrency = (value) => {
                                 </div>
                                 <div class="text-right">
                                     <div class="text-xs text-gray-500">
-                                        {{
-                                            product.bookings_count || 0
-                                        }}
+                                        {{ product.bookings_count || 0 }}
                                         booking
                                     </div>
                                 </div>
@@ -334,7 +322,7 @@ const formatCurrency = (value) => {
 
                             <Link
                                 :href="`/rental/product/${product.id}`"
-                                class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-colors shadow-lg hover:shadow-xl"
+                                class="block text-center bg-[#333333] text-[#ebebeb] font-semibold py-3 transition-colors shadow-lg hover:shadow-xl"
                             >
                                 Lihat Detail & Booking
                             </Link>
@@ -345,25 +333,25 @@ const formatCurrency = (value) => {
 
             <!-- CTA Section -->
             <section
-                class="bg-gradient-to-r from-indigo-600 to-blue-600 rounded-3xl p-12 text-center text-white mb-12 shadow-xl"
+                class="bg-gradient-to-r bg-[#333333] p-12 text-center text-[#ebebeb] mb-12 shadow-xl"
             >
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">
                     Butuh Bantuan Memilih?
                 </h2>
-                <p class="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">
+                <p class="text-lg text-[#ebebeb] mb-8 max-w-2xl mx-auto">
                     Tim kami siap membantu Anda menemukan peralatan yang tepat
                     untuk kebutuhan photography Anda
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <Link
                         href="/contact"
-                        class="px-8 py-4 bg-white text-blue-600 rounded-xl font-bold hover:bg-gray-100 transition shadow-lg"
+                        class="px-8 py-4 bg-transparent border-2 border-[#f4f4f4] text-[#ebebeb] rounded-xl font-bold hover:bg-white hover:text-yellow-800 transition"
                     >
                         💬 Hubungi Kami
                     </Link>
                     <Link
-                        href="/products"
-                        class="px-8 py-4 bg-transparent border-2 border-white text-white rounded-xl font-bold hover:bg-white hover:text-blue-600 transition"
+                        href="/"
+                        class="px-8 py-4 bg-transparent border-2 border-[#f4f4f4] text-[#ebebeb] rounded-xl font-bold hover:bg-white hover:text-yellow-800 transition"
                     >
                         📦 Lihat Semua Produk
                     </Link>

@@ -9,6 +9,12 @@ Route::get('/', [RentalController::class, 'index'])->name('rental.index');
 Route::get('/cart', function () {
     return Inertia::render('Cart/Index');
 });
+Route::get('/about', function () {
+    return Inertia::render('About');
+});
+Route::get('/contact', function () {
+    return Inertia::render('Contact');
+});
 Route::post('/cart/checkout', [RentalController::class, 'cartCheckout'])->name('cart.index');
 
 Route::prefix('rental')->group(function () {

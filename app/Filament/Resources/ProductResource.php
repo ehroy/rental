@@ -44,10 +44,10 @@ class ProductResource extends Resource
                         
                         Forms\Components\FileUpload::make('gambar')
                             ->image()
-                            ->disk('public')
-                            ->label('Gambar Produk')
-                            ->imageEditor()
-                            ->columnSpanFull(),
+                            ->disablePreview()
+                            ->directory('products')
+                            ->acceptedFileTypes(['image/*'])
+                            ->maxSize(5120),
                         
                         Forms\Components\TextInput::make('harga_sewa_perhari')
                             ->required()
