@@ -318,7 +318,7 @@ const formatCurrency = (value) => {
                             </div>
                         </div>
 
-                        <div class="p-4 bg-[#f5f5f5]">
+                        <div class="p-4 bg-[#f5f5f5] h-full">
                             <h3
                                 class="text-xl font-bold mb-2 text-[#333333] group-hover:text-gray-700 transition"
                             >
@@ -352,7 +352,7 @@ const formatCurrency = (value) => {
                             </div>
 
                             <Link
-                                :href="`/rental/product/${product.id}`"
+                                :href="`/product/${product.id}`"
                                 class="block text-center bg-[#333333] text-[#ebebeb] font-semibold py-3 transition-colors shadow-lg hover:shadow-xl"
                             >
                                 Lihat Detail & Booking

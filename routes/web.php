@@ -17,11 +17,8 @@ Route::get('/contact', function () {
 });
 Route::post('/cart/checkout', [RentalController::class, 'cartCheckout'])->name('cart.index');
 
-Route::prefix('rental')->group(function () {
-    Route::get('/product', [RentalController::class, 'index'])->name('rental.index');
-    Route::get('/product/{product}', [RentalController::class, 'show'])->name('rental.show');
-    Route::post('/product/{product}/check', [RentalController::class, 'checkAvailability']);
-    Route::post('/product/{product}/booking', [RentalController::class, 'bookingstore'])->name('rental.bookingstore');
-    Route::get('/orders', [RentalController::class, 'orders'])->name('rental.orders');
-
-});
+Route::get('/product', [RentalController::class, 'index'])->name('rental.index');
+Route::get('/product/{product}', [RentalController::class, 'show'])->name('rental.show');
+Route::post('/product/{product}/check', [RentalController::class, 'checkAvailability']);
+Route::post('/product/{product}/booking', [RentalController::class, 'bookingstore'])->name('rental.bookingstore');
+Route::get('/orders', [RentalController::class, 'orders'])->name('rental.orders');

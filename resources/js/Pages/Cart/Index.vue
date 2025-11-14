@@ -74,7 +74,7 @@ const updateQuantity = (id, change) => {
 
 // Lanjutkan ke halaman booking
 const goToBooking = (product) => {
-    router.visit(`/rental/${product.id}`);
+    router.visit(`/${product.id}`);
 };
 
 // Toggle checkout form

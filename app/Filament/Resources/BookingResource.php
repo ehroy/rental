@@ -33,7 +33,12 @@ class BookingResource extends Resource
                         ->relationship('product', 'nama')
                         ->label('Produk')
                         ->searchable()
-                        ->required(),
+                        ->required()
+                        ->reactive()
+                        ->afterStateUpdated(function ($state, callable $set) {
+                            $harga = \App\Models\Product::find($state)?->harga_sewa_perhari  ?? 0;
+                            $set('total_harga', $harga);
+                        }),
                         
                        Forms\Components\TextInput::make('nama_pemesan')
                             ->label('Nama Pemesan')
@@ -79,6 +84,11 @@ class BookingResource extends Resource
                             ->label('Catatan')
                             ->rows(3)
                             ->columnSpanFull(),
+                        Forms\Components\TextInput::make('total_harga')
+                        ->label('Total Pembayaran')
+                        ->disabled() // tidak bisa diubah manual
+                        ->dehydrated() // tetap disimpan ke DB
+                        ->numeric(),
                     ])
                     ->columns(2),
             ]);

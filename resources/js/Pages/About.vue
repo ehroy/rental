@@ -4,9 +4,8 @@ import Navbar from "@/Components/Navbar.vue";
 </script>
 
 <template>
-    <div class="min-h-screen bg-gray-50">
+    <div class="min-h-screen bg-gray-100">
         <Navbar />
-        <!-- Hero Section -->
 
         <!-- Story Section -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -47,7 +46,7 @@ import Navbar from "@/Components/Navbar.vue";
                         />
                     </div>
                     <div
-                        class="absolute -bottom-6 -right-6 bg-blue-600 text-white p-6 rounded-lg shadow-xl"
+                        class="absolute -bottom-6 -right-6 bg-gray-800 text-white p-6 rounded-lg shadow-xl"
                     >
                         <p class="text-4xl font-bold">5+</p>
                         <p class="text-sm">Tahun Pengalaman</p>
@@ -57,16 +56,20 @@ import Navbar from "@/Components/Navbar.vue";
         </div>
 
         <!-- Values Section -->
-        <div class="bg-white py-16">
+        <div class="bg-gray-200 py-16">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">
                     Nilai-Nilai Kami
                 </h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div
-                        class="text-center p-6 rounded-lg hover:shadow-lg transition"
+                        class="text-center p-6 bg-white rounded-lg hover:shadow-lg transition"
                     >
-                        <div class="text-5xl mb-4">🎯</div>
+                        <div class="flex justify-center mb-4">
+                            <span
+                                class="mdi mdi-target text-6xl text-gray-700"
+                            ></span>
+                        </div>
                         <h3 class="text-xl font-bold mb-3 text-gray-900">
                             Kualitas Terjamin
                         </h3>
@@ -76,9 +79,13 @@ import Navbar from "@/Components/Navbar.vue";
                         </p>
                     </div>
                     <div
-                        class="text-center p-6 rounded-lg hover:shadow-lg transition"
+                        class="text-center p-6 bg-white rounded-lg hover:shadow-lg transition"
                     >
-                        <div class="text-5xl mb-4">💎</div>
+                        <div class="flex justify-center mb-4">
+                            <span
+                                class="mdi mdi-currency-usd text-6xl text-gray-700"
+                            ></span>
+                        </div>
                         <h3 class="text-xl font-bold mb-3 text-gray-900">
                             Harga Terjangkau
                         </h3>
@@ -88,9 +95,13 @@ import Navbar from "@/Components/Navbar.vue";
                         </p>
                     </div>
                     <div
-                        class="text-center p-6 rounded-lg hover:shadow-lg transition"
+                        class="text-center p-6 bg-white rounded-lg hover:shadow-lg transition"
                     >
-                        <div class="text-5xl mb-4">🤝</div>
+                        <div class="flex justify-center mb-4">
+                            <span
+                                class="mdi mdi-account-heart text-6xl text-gray-700"
+                            ></span>
+                        </div>
                         <h3 class="text-xl font-bold mb-3 text-gray-900">
                             Pelayanan Prima
                         </h3>
@@ -104,26 +115,26 @@ import Navbar from "@/Components/Navbar.vue";
         </div>
 
         <!-- Stats Section -->
-        <div class="bg-gradient-to-r from-blue-600 to-purple-600 py-16">
+        <div class="bg-gradient-to-r from-gray-700 to-gray-900 py-16">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div
                     class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white"
                 >
                     <div>
                         <p class="text-4xl font-bold mb-2">5000+</p>
-                        <p class="text-blue-100">Pelanggan Puas</p>
+                        <p class="text-gray-300">Pelanggan Puas</p>
                     </div>
                     <div>
                         <p class="text-4xl font-bold mb-2">150+</p>
-                        <p class="text-blue-100">Peralatan Ready</p>
+                        <p class="text-gray-300">Peralatan Ready</p>
                     </div>
                     <div>
                         <p class="text-4xl font-bold mb-2">98%</p>
-                        <p class="text-blue-100">Rating Kepuasan</p>
+                        <p class="text-gray-300">Rating Kepuasan</p>
                     </div>
                     <div>
                         <p class="text-4xl font-bold mb-2">24/7</p>
-                        <p class="text-blue-100">Customer Support</p>
+                        <p class="text-gray-300">Customer Support</p>
                     </div>
                 </div>
             </div>
@@ -137,7 +148,7 @@ import Navbar from "@/Components/Navbar.vue";
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="text-center">
                     <div
-                        class="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white text-4xl font-bold"
+                        class="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-gray-500 to-gray-700 flex items-center justify-center text-white text-4xl font-bold"
                     >
                         AR
                     </div>
@@ -146,7 +157,7 @@ import Navbar from "@/Components/Navbar.vue";
                 </div>
                 <div class="text-center">
                     <div
-                        class="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center text-white text-4xl font-bold"
+                        class="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-gray-600 to-gray-800 flex items-center justify-center text-white text-4xl font-bold"
                     >
                         SP
                     </div>
@@ -155,7 +166,7 @@ import Navbar from "@/Components/Navbar.vue";
                 </div>
                 <div class="text-center">
                     <div
-                        class="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-pink-400 to-red-500 flex items-center justify-center text-white text-4xl font-bold"
+                        class="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-gray-500 to-gray-700 flex items-center justify-center text-white text-4xl font-bold"
                     >
                         BW
                     </div>
@@ -164,7 +175,7 @@ import Navbar from "@/Components/Navbar.vue";
                 </div>
                 <div class="text-center">
                     <div
-                        class="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center text-white text-4xl font-bold"
+                        class="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-gray-600 to-gray-800 flex items-center justify-center text-white text-4xl font-bold"
                     >
                         DA
                     </div>
@@ -189,7 +200,7 @@ import Navbar from "@/Components/Navbar.vue";
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <Link
                         href="/products"
-                        class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition"
+                        class="bg-gray-700 hover:bg-gray-600 text-white px-8 py-3 rounded-lg font-semibold transition"
                     >
                         Lihat Produk
                     </Link>

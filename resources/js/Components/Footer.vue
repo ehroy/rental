@@ -17,9 +17,13 @@ const socialLinks = page.props.social_links;
                     <div
                         class="flex items-center justify-center md:justify-start space-x-2 mb-4"
                     >
-                        <span class="text-2xl sm:text-3xl">📷</span>
+                        <img
+                            src="/images/icon.png"
+                            class="w-10 h-10 rounded-full"
+                            alt="rental camera"
+                        />
                         <span class="text-xl sm:text-2xl font-bold"
-                            >CameraRent Pro</span
+                            >Quick Rental</span
                         >
                     </div>
                     <p class="text-[#ebebeb] text-sm sm:text-base mb-4">

@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { useForm } from "@inertiajs/vue3";
 import Navbar from "@/Components/Navbar.vue";
+
 const form = useForm({
     name: "",
     email: "",
@@ -23,7 +24,7 @@ const submitForm = () => {
 </script>
 
 <template>
-    <div class="min-h-screen bg-gray-50">
+    <div class="min-h-screen bg-gray-100">
         <!-- Hero Section -->
         <Navbar />
 
@@ -37,9 +38,11 @@ const submitForm = () => {
                     >
                         <div class="flex items-start space-x-4">
                             <div
-                                class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-2xl"
+                                class="flex-shrink-0 w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center"
                             >
-                                📞
+                                <span
+                                    class="mdi mdi-phone text-3xl text-gray-700"
+                                ></span>
                             </div>
                             <div>
                                 <h3
@@ -52,9 +55,9 @@ const submitForm = () => {
                                 </p>
                                 <a
                                     href="tel:+6281234567890"
-                                    class="text-blue-600 hover:text-blue-700 font-semibold"
+                                    class="text-gray-700 hover:text-gray-900 font-semibold"
                                 >
-                                    +62 812 3456 7890
+                                    +62 953 815 87961
                                 </a>
                                 <p class="text-sm text-gray-500 mt-1">
                                     Sen-Sab: 09.00-18.00
@@ -69,9 +72,11 @@ const submitForm = () => {
                     >
                         <div class="flex items-start space-x-4">
                             <div
-                                class="flex-shrink-0 w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center text-2xl"
+                                class="flex-shrink-0 w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center"
                             >
-                                📧
+                                <span
+                                    class="mdi mdi-email text-3xl text-gray-700"
+                                ></span>
                             </div>
                             <div>
                                 <h3
@@ -83,10 +88,10 @@ const submitForm = () => {
                                     Kirim email ke kami
                                 </p>
                                 <a
-                                    href="mailto:info@camerarent.com"
-                                    class="text-blue-600 hover:text-blue-700 font-semibold break-all"
+                                    href="mailto:Ahmadroy092@gmail.com"
+                                    class="text-gray-700 hover:text-gray-900 font-semibold break-all"
                                 >
-                                    info@camerarent.com
+                                    Ahmadroy092@gmail.com
                                 </a>
                                 <p class="text-sm text-gray-500 mt-1">
                                     Respon dalam 24 jam
@@ -101,9 +106,11 @@ const submitForm = () => {
                     >
                         <div class="flex items-start space-x-4">
                             <div
-                                class="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center text-2xl"
+                                class="flex-shrink-0 w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center"
                             >
-                                📍
+                                <span
+                                    class="mdi mdi-map-marker text-3xl text-gray-700"
+                                ></span>
                             </div>
                             <div>
                                 <h3
@@ -116,7 +123,7 @@ const submitForm = () => {
                                 </p>
                                 <p class="text-gray-700">
                                     Jazzphotostudio<br />
-                                    Kudus, Jawa Tengah<br />
+                                    Jepara, Jawa Tengah<br />
                                     Indonesia
                                 </p>
                             </div>
@@ -125,23 +132,25 @@ const submitForm = () => {
 
                     <!-- WhatsApp Card -->
                     <div
-                        class="bg-gradient-to-r from-green-500 to-green-600 rounded-lg shadow-lg p-6 hover:shadow-xl transition text-white"
+                        class="bg-gradient-to-r from-gray-700 to-gray-900 rounded-lg shadow-lg p-6 hover:shadow-xl transition text-white"
                     >
                         <div class="flex items-start space-x-4">
                             <div
-                                class="flex-shrink-0 w-12 h-12 bg-white rounded-lg flex items-center justify-center text-2xl"
+                                class="flex-shrink-0 w-12 h-12 bg-white rounded-lg flex items-center justify-center"
                             >
-                                💬
+                                <span
+                                    class="mdi mdi-whatsapp text-3xl text-gray-700"
+                                ></span>
                             </div>
                             <div>
                                 <h3 class="font-bold text-lg mb-2">WhatsApp</h3>
-                                <p class="text-green-50 mb-3">
+                                <p class="text-gray-300 mb-3">
                                     Chat dengan kami sekarang
                                 </p>
                                 <a
                                     href="https://wa.me/6281234567890"
                                     target="_blank"
-                                    class="inline-block bg-white text-green-600 px-4 py-2 rounded-lg font-semibold hover:bg-green-50 transition"
+                                    class="inline-block bg-white text-gray-800 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition"
                                 >
                                     Chat Sekarang
                                 </a>
@@ -168,7 +177,7 @@ const submitForm = () => {
                                         v-model="form.name"
                                         type="text"
                                         required
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent transition"
                                         placeholder="John Doe"
                                     />
                                 </div>
@@ -182,7 +191,7 @@ const submitForm = () => {
                                         v-model="form.email"
                                         type="email"
                                         required
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent transition"
                                         placeholder="john@example.com"
                                     />
                                 </div>
@@ -199,7 +208,7 @@ const submitForm = () => {
                                         v-model="form.phone"
                                         type="tel"
                                         required
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent transition"
                                         placeholder="+62 812 3456 7890"
                                     />
                                 </div>
@@ -212,7 +221,7 @@ const submitForm = () => {
                                     <select
                                         v-model="form.subject"
                                         required
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent transition"
                                     >
                                         <option value="">Pilih subjek</option>
                                         <option value="rental">
@@ -242,7 +251,7 @@ const submitForm = () => {
                                     v-model="form.message"
                                     required
                                     rows="6"
-                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition resize-none"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent transition resize-none"
                                     placeholder="Tuliskan pesan Anda di sini..."
                                 ></textarea>
                             </div>
@@ -251,19 +260,19 @@ const submitForm = () => {
                                 <input
                                     type="checkbox"
                                     required
-                                    class="mt-1 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                                    class="mt-1 w-4 h-4 text-gray-600 border-gray-300 rounded focus:ring-gray-500"
                                 />
                                 <label class="text-sm text-gray-600">
                                     Saya setuju dengan
                                     <a
                                         href="/privacy"
-                                        class="text-blue-600 hover:text-blue-700"
+                                        class="text-gray-700 hover:text-gray-900 font-semibold"
                                         >kebijakan privasi</a
                                     >
                                     dan
                                     <a
                                         href="/terms"
-                                        class="text-blue-600 hover:text-blue-700"
+                                        class="text-gray-700 hover:text-gray-900 font-semibold"
                                         >syarat & ketentuan</a
                                     >
                                 </label>
@@ -272,12 +281,14 @@ const submitForm = () => {
                             <button
                                 type="submit"
                                 :disabled="form.processing"
-                                class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 rounded-lg transition transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed"
+                                class="w-full bg-gradient-to-r from-gray-700 to-gray-900 hover:from-gray-800 hover:to-black text-white font-bold py-4 rounded-lg transition transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                             >
-                                <span v-if="!form.processing"
-                                    >Kirim Pesan 📨</span
-                                >
+                                <span v-if="!form.processing">Kirim Pesan</span>
                                 <span v-else>Mengirim...</span>
+                                <span
+                                    v-if="!form.processing"
+                                    class="mdi mdi-send"
+                                ></span>
                             </button>
                         </form>
                     </div>
@@ -303,47 +314,91 @@ const submitForm = () => {
             </div>
 
             <!-- FAQ Quick Links -->
-            <div class="mt-16 bg-blue-50 rounded-lg p-8">
+            <div class="mt-16 bg-gray-200 rounded-lg p-8">
                 <h3 class="text-2xl font-bold text-center text-gray-900 mb-6">
                     Pertanyaan yang Sering Diajukan
                 </h3>
                 <div
                     class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto"
                 >
-                    <div class="bg-white p-6 rounded-lg shadow">
-                        <h4 class="font-bold text-lg text-gray-900 mb-2">
-                            🕐 Jam Operasional
-                        </h4>
-                        <p class="text-gray-600">
-                            Senin - Sabtu: 09.00 - 18.00 WIB<br />Minggu &
-                            Libur: Tutup
-                        </p>
+                    <div
+                        class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition"
+                    >
+                        <div class="flex items-start gap-3">
+                            <span
+                                class="mdi mdi-clock-outline text-2xl text-gray-700"
+                            ></span>
+                            <div>
+                                <h4
+                                    class="font-bold text-lg text-gray-900 mb-2"
+                                >
+                                    Jam Operasional
+                                </h4>
+                                <p class="text-gray-600">
+                                    Senin - Sabtu: 09.00 - 18.00 WIB<br />Minggu
+                                    & Libur: Tutup
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow">
-                        <h4 class="font-bold text-lg text-gray-900 mb-2">
-                            ⚡ Respon Time
-                        </h4>
-                        <p class="text-gray-600">
-                            Email: Maksimal 24 jam<br />WhatsApp: Instan (jam
-                            kerja)
-                        </p>
+                    <div
+                        class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition"
+                    >
+                        <div class="flex items-start gap-3">
+                            <span
+                                class="mdi mdi-lightning-bolt text-2xl text-gray-700"
+                            ></span>
+                            <div>
+                                <h4
+                                    class="font-bold text-lg text-gray-900 mb-2"
+                                >
+                                    Respon Time
+                                </h4>
+                                <p class="text-gray-600">
+                                    Email: Maksimal 24 jam<br />WhatsApp: Instan
+                                    (jam kerja)
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow">
-                        <h4 class="font-bold text-lg text-gray-900 mb-2">
-                            💳 Metode Pembayaran
-                        </h4>
-                        <p class="text-gray-600">
-                            Transfer Bank, E-Wallet, QRIS, dan Cash
-                        </p>
+                    <div
+                        class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition"
+                    >
+                        <div class="flex items-start gap-3">
+                            <span
+                                class="mdi mdi-credit-card text-2xl text-gray-700"
+                            ></span>
+                            <div>
+                                <h4
+                                    class="font-bold text-lg text-gray-900 mb-2"
+                                >
+                                    Metode Pembayaran
+                                </h4>
+                                <p class="text-gray-600">
+                                    Transfer Bank, E-Wallet, QRIS, dan Cash
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow">
-                        <h4 class="font-bold text-lg text-gray-900 mb-2">
-                            📦 Pengiriman
-                        </h4>
-                        <p class="text-gray-600">
-                            Tersedia pengiriman ke seluruh Indonesia via kurir
-                            terpercaya
-                        </p>
+                    <div
+                        class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition"
+                    >
+                        <div class="flex items-start gap-3">
+                            <span
+                                class="mdi mdi-package-variant text-2xl text-gray-700"
+                            ></span>
+                            <div>
+                                <h4
+                                    class="font-bold text-lg text-gray-900 mb-2"
+                                >
+                                    Pengiriman
+                                </h4>
+                                <p class="text-gray-600">
+                                    Tersedia pengiriman ke seluruh Indonesia via
+                                    kurir terpercaya
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

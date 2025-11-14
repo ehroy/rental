@@ -39,7 +39,11 @@ const navLinks = [
                         <div
                             class="absolute inset-0 bg-white/20 rounded-full blur-md group-hover:blur-lg transition"
                         ></div>
-                        <span class="relative text-4xl drop-shadow-lg">📷</span>
+                        <img
+                            src="/images/icon.png"
+                            class="w-12 h-12 rounded-full"
+                            alt="rental camera"
+                        />
                     </div>
                     <div>
                         <span
@@ -110,7 +114,11 @@ const navLinks = [
     >
         <!-- Logo Mobile -->
         <Link href="/" class="flex items-center space-x-2" aria-label="Home">
-            <span class="text-3xl">📷</span>
+            <img
+                src="/images/icon.png"
+                class="w-10 h-10 rounded-full"
+                alt="rental camera"
+            />
             <div>
                 <span class="text-2xl font-bold text-gray-600 tracking-tight">
                     Quick&nbsp;<span class="text-yellow-600">Rental</span>

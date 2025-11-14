@@ -154,7 +154,7 @@ const submitBooking = () => {
     };
 
     // Gunakan router.post dengan onSuccess callback
-    router.post(`/rental/product/${product.value.id}/booking`, payload, {
+    router.post(`/product/${product.value.id}/booking`, payload, {
         onSuccess: (page) => {
             // Ambil whatsapp URL dari response
             if (page.props.whatsappUrl) {
@@ -405,10 +405,7 @@ const nextMonth = () => {
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
                 <div class="flex items-center space-x-2 text-sm text-gray-600">
                     <Link href="/" class="hover:text-blue-600">Beranda</Link>
-                    <span>/</span>
-                    <Link href="/products" class="hover:text-blue-600"
-                        >Produk</Link
-                    >
+
                     <span>/</span>
                     <span class="text-gray-900 font-medium">{{
                         product.nama
@@ -870,6 +867,9 @@ const nextMonth = () => {
                             @submit.prevent="submitBooking"
                             class="space-y-6 pt-2"
                         >
+                            <p class="font-semibold text-gray-700 text-sm">
+                                Tanggal :
+                            </p>
                             <!-- Date Range -->
                             <div class="grid grid-cols-2 gap-4">
                                 <div class="group">
@@ -889,7 +889,7 @@ const nextMonth = () => {
                                                 d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                                             />
                                         </svg>
-                                        Tanggal Mulai
+                                        Mulai
                                     </label>
                                     <div class="relative">
                                         <input
@@ -985,7 +985,7 @@ const nextMonth = () => {
                                                 d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                                             />
                                         </svg>
-                                        Tanggal Selesai
+                                        Selesai
                                     </label>
                                     <div class="relative">
                                         <input

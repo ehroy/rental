@@ -273,7 +273,7 @@ const formatCurrency = (value) => {
                         </div>
 
                         <Link
-                            :href="`/rental/product/${product.id}`"
+                            :href="`/product/${product.id}`"
                             class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-colors shadow-lg hover:shadow-xl"
                         >
                             Lihat Detail & Booking
