@@ -1,5 +1,8 @@
 <script setup>
-import { Link, usePage } from "@inertiajs/vue3";
+import { usePage, Link } from "@inertiajs/vue3";
+
+const page = usePage();
+const socialLinks = page.props.social_links;
 </script>
 
 <template>
@@ -24,31 +27,17 @@ import { Link, usePage } from "@inertiajs/vue3";
                         Indonesia. Kami menyediakan berbagai peralatan
                         photography berkualitas tinggi dengan harga terjangkau.
                     </p>
-                    <div class="flex justify-center md:justify-start space-x-4">
+                    <div class="flex gap-5">
                         <a
-                            href="#"
-                            class="text-xl sm:text-2xl hover:text-blue-400 transition"
-                            aria-label="Facebook"
-                            >📘</a
+                            v-for="item in socialLinks"
+                            :key="item.id"
+                            :href="item.link"
+                            target="_blank"
+                            class="flex items-center gap-2 hover:text-yellow-600 transition"
                         >
-                        <a
-                            href="#"
-                            class="text-xl sm:text-2xl hover:text-blue-400 transition"
-                            aria-label="Instagram"
-                            >📷</a
-                        >
-                        <a
-                            href="#"
-                            class="text-xl sm:text-2xl hover:text-blue-400 transition"
-                            aria-label="Twitter"
-                            >🐦</a
-                        >
-                        <a
-                            href="#"
-                            class="text-xl sm:text-2xl hover:text-blue-400 transition"
-                            aria-label="YouTube"
-                            >▶️</a
-                        >
+                            <i :class="item.icon" class="text-xl"></i>
+                            <span>{{ item.name }}</span>
+                        </a>
                     </div>
                 </div>
 
@@ -107,32 +96,33 @@ import { Link, usePage } from "@inertiajs/vue3";
                         >
                             <span class="flex-shrink-0">📍</span>
                             <span class="text-left">
-                                Jazzphotostudio<br />Kudus, Jawa Tengah
+                                Jazzphotostudio<br />Jepara, Jawa Tengah
                             </span>
                         </li>
                         <li
                             class="flex items-center justify-center md:justify-start space-x-2"
                         >
                             <span>📞</span>
-                            <span>+62 812 3456 7890</span>
+                            <span>+62 895 381 587 961</span>
                         </li>
                         <li
                             class="flex items-center justify-center md:justify-start space-x-2"
                         >
                             <span>📧</span>
-                            <span class="break-all">info@camerarent.com</span>
+                            <span class="break-all">ahmadroy092@gmail.com</span>
                         </li>
                         <li
                             class="flex items-center justify-center md:justify-start space-x-2"
                         >
                             <span>⏰</span>
-                            <span>Sen-Sab: 09.00-18.00</span>
+                            <span>Sen-Sab: 07.00-23.00</span>
                         </li>
                     </ul>
                 </div>
             </div>
 
             <!-- Google Maps -->
+
             <div class="mb-8">
                 <h4
                     class="font-bold text-base sm:text-lg mb-4 text-center md:text-left"
@@ -140,7 +130,7 @@ import { Link, usePage } from "@inertiajs/vue3";
                     Lokasi Kami
                 </h4>
                 <div
-                    class="w-full h-64 sm:h-80 rounded-lg overflow-hidden shadow-lg"
+                    class="w-full md:w-2/3 lg:w-1/2 mx-auto md:mx-0 h-48 sm:h-56 rounded-lg overflow-hidden shadow-lg"
                 >
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d494.0723638856843!2d110.70977520596663!3d-6.615531035896612!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e711fe9dd48fbdf%3A0x23acd3348e773625!2sJazzphotostudio!5e0!3m2!1sid!2sid!4v1731482000000!5m2!1sid!2sid"
@@ -160,8 +150,8 @@ import { Link, usePage } from "@inertiajs/vue3";
                 class="border-t border-gray-700 pt-6 sm:pt-8 text-center text-[#ebebeb] text-sm sm:text-base"
             >
                 <p>
-                    &copy; 2025 CameraRent Pro. All rights reserved. Made with
-                    ❤️ in Indonesia
+                    &copy; 2025 Quick Camera. All rights reserved. Made with in
+                    Indonesia
                 </p>
             </div>
         </div>

@@ -122,33 +122,64 @@ const formatCurrency = (value) => {
                     <div
                         class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 text-[#CCCCCC]"
                     >
+                        <!-- Card 1 -->
                         <div
-                            class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6"
+                            class="bg-gradient-to-br from-green-500/20 to-emerald-500/10 backdrop-blur-sm rounded-xl p-6 border border-green-500/20 hover:border-green-500/40 transition flex flex-col items-center text-center"
                         >
-                            <span class="text-4xl mb-3 block">✅</span>
-                            <h3 class="font-bold text-lg mb-2">
+                            <div
+                                class="w-14 h-14 bg-gradient-to-br from-green-400 to-emerald-500 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-green-500/20"
+                            >
+                                <span
+                                    class="mdi mdi-shield-check text-3xl text-white"
+                                ></span>
+                            </div>
+
+                            <h3 class="font-bold text-lg mb-2 text-white">
                                 Garansi Kualitas
                             </h3>
+
                             <p class="text-sm">
                                 Peralatan terawat & berkualitas tinggi
                             </p>
                         </div>
+
+                        <!-- Card 2 -->
                         <div
-                            class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6"
+                            class="bg-gradient-to-br from-blue-500/20 to-cyan-500/10 backdrop-blur-sm rounded-xl p-6 border border-blue-500/20 hover:border-blue-500/40 transition flex flex-col items-center text-center"
                         >
-                            <span class="text-4xl mb-3 block">⚡</span>
-                            <h3 class="font-bold text-lg mb-2">Proses Cepat</h3>
+                            <div
+                                class="w-14 h-14 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-blue-500/20"
+                            >
+                                <span
+                                    class="mdi mdi-rocket-launch text-3xl text-white"
+                                ></span>
+                            </div>
+
+                            <h3 class="font-bold text-lg mb-2 text-white">
+                                Proses Cepat
+                            </h3>
+
                             <p class="text-sm">
                                 Booking online, ambil langsung
                             </p>
                         </div>
+
+                        <!-- Card 3 -->
                         <div
-                            class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6"
+                            class="bg-gradient-to-br from-yellow-500/20 to-orange-500/10 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/20 hover:border-yellow-500/40 transition flex flex-col items-center text-center"
                         >
-                            <span class="text-4xl mb-3 block">💰</span>
-                            <h3 class="font-bold text-lg mb-2">
+                            <div
+                                class="w-14 h-14 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-yellow-500/20"
+                            >
+                                <span
+                                    class="mdi mdi-cash-multiple text-3xl text-white"
+                                ></span>
+                            </div>
+
+                            <h3 class="font-bold text-lg mb-2 text-white">
                                 Harga Terjangkau
                             </h3>
+
                             <p class="text-sm">Harga sewa mulai 50rb/hari</p>
                         </div>
                     </div>

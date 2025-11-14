@@ -56,8 +56,10 @@ const getItemSubtotal = (item) => {
 };
 
 // Hapus item dari keranjang
-const removeItem = (id) => {
-    cartItems.value = cartItems.value.filter((i) => i.id !== id);
+const removeItem = (product_id) => {
+    cartItems.value = cartItems.value.filter(
+        (i) => i.product_id !== product_id
+    );
     localStorage.setItem("cart", JSON.stringify(cartItems.value));
 };
 
@@ -393,7 +395,9 @@ const formatDate = (date) => {
                                         <div class="flex items-center gap-2">
                                             <!-- Desktop Remove Button -->
                                             <button
-                                                @click="removeItem(item.id)"
+                                                @click="
+                                                    removeItem(item.product_id)
+                                                "
                                                 class="hidden sm:flex items-center gap-1 px-3 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors text-sm font-medium"
                                             >
                                                 <svg

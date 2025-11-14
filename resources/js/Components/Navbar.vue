@@ -45,7 +45,9 @@ const navLinks = [
                         <span
                             class="text-2xl font-bold text-gray-600 tracking-tight"
                         >
-                            Quick<span class="text-yellow-600">Rental</span>
+                            Quick&nbsp;<span class="text-yellow-600"
+                                >Rental</span
+                            >
                         </span>
                         <span class="text-xs text-gray-600 block -mt-1">
                             Sewa Kamera Profesional
@@ -110,8 +112,8 @@ const navLinks = [
         <Link href="/" class="flex items-center space-x-2" aria-label="Home">
             <span class="text-3xl">📷</span>
             <div>
-                <span class="text-lg font-bold text-gray-800">
-                    Quick<span class="text-yellow-600">Rental</span>
+                <span class="text-2xl font-bold text-gray-600 tracking-tight">
+                    Quick&nbsp;<span class="text-yellow-600">Rental</span>
                 </span>
             </div>
         </Link>
@@ -152,7 +154,7 @@ const navLinks = [
                 :class="[
                     'flex flex-col items-center justify-center transition-all relative',
                     currentPath === link.href
-                        ? 'text-blue-600'
+                        ? 'text-gray-600'
                         : 'text-gray-400 hover:text-gray-600',
                 ]"
             >
@@ -201,7 +203,7 @@ const navLinks = [
                 <!-- Active Indicator (Top Bar) -->
                 <div
                     v-if="currentPath === link.href && !link.isCart"
-                    class="absolute top-0 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-blue-600 rounded-b-full"
+                    class="absolute top-0 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-gray-600 rounded-b-full"
                 ></div>
             </Link>
         </div>

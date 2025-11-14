@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Booking;
 use App\Models\Category;
+use App\Models\Setting;
+use App\Models\SocialLink;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -95,6 +97,36 @@ class DatabaseSeeder extends Seeder
             'status' => 'pending',
             'total_harga' => 170000 * 1,
             'catatan' => null,
+        ]);
+        Setting::create([
+            'domain' => '127.0.0.1:8000',
+            'name' => 'Vintia Jewelry',
+            'tag' => 'Elegan & Mewah',
+            'icon' => '',
+            'logo' => '',
+            'meta_author' => '@jstalinko',
+            'meta_description' => 'Perhiasan elegan handmade oleh Vintia Jewelry',
+            'meta_keywords' => 'vintia, jewelry, emas, perhiasan',
+        ]);
+        SocialLink::insert([
+            [
+                'icon' => 'mdi mdi-instagram',
+                'name' => 'Instagram',
+                'link' => 'https://instagram.com/vintiajewelry',
+                'sort' => 1,
+            ],
+            [
+                'icon' => 'mdi mdi-facebook',
+                'name' => 'Facebook',
+                'link' => 'https://facebook.com/vintia',
+                'sort' => 2,
+            ],
+            [
+                'icon' => 'mdi mdi-whatsapp',
+                'name' => 'WhatsApp',
+                'link' => 'https://wa.me/628123456789',
+                'sort' => 3,
+            ],
         ]);
     }
 }

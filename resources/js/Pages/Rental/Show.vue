@@ -20,8 +20,9 @@ const rentalForm = ref({
 const selectedImage = ref(0);
 const quantity = ref(1);
 const showDateWarning = ref(false);
-const dateWarningMessage = ref("");
-
+const showDescription = ref(false);
+const showTerms = ref(false);
+const showHours = ref(false);
 // Sample images
 const productImages = ref([
     product.value.gambar,
@@ -434,68 +435,15 @@ const nextMonth = () => {
                         />
                     </div>
 
-                    <!-- Thumbnail Images -->
-                    <div class="grid grid-cols-4 gap-2">
-                        <div
-                            v-for="(image, index) in productImages"
-                            :key="index"
-                            @click="selectedImage = index"
-                            :class="[
-                                'cursor-pointer rounded-lg overflow-hidden border-2 transition',
-                                selectedImage === index
-                                    ? 'border-blue-600'
-                                    : 'border-gray-200 hover:border-blue-400',
-                            ]"
-                        >
-                            <img
-                                :src="helpers.imageUrl(image)"
-                                class="w-full h-20 object-cover"
-                            />
-                        </div>
-                    </div>
-
-                    <!-- Specifications -->
-                    <!-- <div class="bg-white rounded-2xl shadow-lg p-6 mt-6">
-                        <h3 class="text-xl font-bold mb-4">
-                            Spesifikasi Produk
-                        </h3>
-                        <div class="space-y-3 text-sm">
-                            <div class="flex justify-between py-2 border-b">
-                                <span class="text-gray-600">Kategori</span>
-                                <span class="font-medium"
-                                    >Mirrorless Camera</span
-                                >
-                            </div>
-                            <div class="flex justify-between py-2 border-b">
-                                <span class="text-gray-600">Brand</span>
-                                <span class="font-medium">Canon</span>
-                            </div>
-                            <div class="flex justify-between py-2 border-b">
-                                <span class="text-gray-600">Resolusi</span>
-                                <span class="font-medium">45 MP</span>
-                            </div>
-                            <div class="flex justify-between py-2 border-b">
-                                <span class="text-gray-600">Video</span>
-                                <span class="font-medium">8K 30fps</span>
-                            </div>
-                            <div class="flex justify-between py-2">
-                                <span class="text-gray-600">Kondisi</span>
-                                <span class="font-medium text-green-600"
-                                    >Excellent</span
-                                >
-                            </div>
-                        </div>
-                    </div> -->
-
                     <!-- Calendar Availability -->
                     <div class="bg-white rounded-2xl shadow-lg p-6 mt-6">
                         <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-xl font-bold text-gray-800">
+                            <h3 class="text-xl font-bold text-gray-700">
                                 📅 Ketersediaan
                             </h3>
                             <button
                                 @click="showCalendar = !showCalendar"
-                                class="text-sm text-blue-600 hover:text-blue-700 font-medium"
+                                class="text-sm text-gray-600 hover:text-gray-700 font-medium"
                             >
                                 {{ showCalendar ? "Sembunyikan" : "Tampilkan" }}
                             </button>
@@ -503,14 +451,16 @@ const nextMonth = () => {
 
                         <div v-show="showCalendar">
                             <!-- Calendar Header -->
-                            <div class="flex items-center justify-between mb-4">
+                            <div
+                                class="flex items-center justify-between mb-4 text-gray-600"
+                            >
                                 <button
                                     @click="previousMonth"
                                     class="p-2 hover:bg-gray-100 rounded-lg transition"
                                 >
                                     ◀
                                 </button>
-                                <h4 class="font-bold text-gray-800">
+                                <h4 class="font-bold text-gray-600">
                                     {{ currentMonthName }}
                                 </h4>
                                 <button
@@ -649,7 +599,7 @@ const nextMonth = () => {
                     <div class="bg-white rounded-2xl shadow-lg p-8">
                         <!-- Title & Rating -->
                         <div class="mb-6">
-                            <h1 class="text-3xl font-bold text-gray-900 mb-3">
+                            <h1 class="text-3xl font-bold text-gray-700 mb-3">
                                 {{ product.nama }}
                             </h1>
                             <div class="flex items-center space-x-4 mb-3">
@@ -665,7 +615,7 @@ const nextMonth = () => {
                                 >
                             </div>
                             <div class="flex items-baseline space-x-2">
-                                <span class="text-4xl font-bold text-blue-600">
+                                <span class="text-4xl font-bold text-gray-700">
                                     {{
                                         formatCurrency(
                                             product.harga_sewa_perhari
@@ -677,11 +627,121 @@ const nextMonth = () => {
                         </div>
 
                         <!-- Description -->
-                        <div class="mb-6 pb-6 border-b">
-                            <h3 class="font-bold text-lg mb-2">Deskripsi</h3>
-                            <p class="text-gray-600 leading-relaxed">
-                                {{ product.deskripsi }}
-                            </p>
+                        <div class="mb-6 pb-6 border-b text-gray-700">
+                            <!-- Toggle Header -->
+                            <div
+                                class="flex items-center justify-between cursor-pointer"
+                                @click="showDescription = !showDescription"
+                            >
+                                <h3 class="font-bold text-lg">Deskripsi</h3>
+                                <span>
+                                    <i
+                                        :class="
+                                            showDescription
+                                                ? 'mdi mdi-chevron-up'
+                                                : 'mdi mdi-chevron-down'
+                                        "
+                                        class="text-xl"
+                                    ></i>
+                                </span>
+                            </div>
+
+                            <!-- Description Content -->
+                            <div v-if="showDescription" class="mt-3">
+                                <p class="text-gray-600 leading-relaxed">
+                                    {{ product.deskripsi }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- SYARAT & KETENTUAN -->
+                        <div class="mb-6 pb-6 border-b text-gray-700">
+                            <div
+                                class="flex items-center justify-between cursor-pointer"
+                                @click="showTerms = !showTerms"
+                            >
+                                <h3 class="font-bold text-lg">
+                                    Syarat & Ketentuan Penyewaan
+                                </h3>
+                                <span>
+                                    <i
+                                        :class="
+                                            showTerms
+                                                ? 'mdi mdi-chevron-up'
+                                                : 'mdi mdi-chevron-down'
+                                        "
+                                        class="text-xl"
+                                    ></i>
+                                </span>
+                            </div>
+
+                            <div
+                                v-if="showTerms"
+                                class="mt-3 text-gray-600 leading-relaxed space-y-2"
+                            >
+                                <p>
+                                    • Wajib menyerahkan identitas asli (KTP/SIM)
+                                    saat pengambilan unit.
+                                </p>
+                                <p>
+                                    • Penyewa bertanggung jawab penuh atas
+                                    kerusakan/hilangnya unit.
+                                </p>
+                                <p>
+                                    • Pembatalan H-1 dikenakan biaya 20% dari
+                                    total sewa.
+                                </p>
+                                <p>
+                                    • Jika booking dilakukan lebih dari
+                                    <strong>H+7</strong> sebelum hari sewa,
+                                    wajib DP <strong>10%</strong> dari total
+                                    penyewaan.
+                                </p>
+                                <p>
+                                    • Harga belum termasuk biaya antar-jemput
+                                    unit.
+                                </p>
+                                <p>
+                                    • Dilarang menggunakan unit untuk kegiatan
+                                    ilegal.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- JAM OPERASIONAL -->
+                        <div class="mb-6 pb-6 border-b text-gray-700">
+                            <div
+                                class="flex items-center justify-between cursor-pointer"
+                                @click="showHours = !showHours"
+                            >
+                                <h3 class="font-bold text-lg">
+                                    Jam Operasional
+                                </h3>
+                                <span>
+                                    <i
+                                        :class="
+                                            showHours
+                                                ? 'mdi mdi-chevron-up'
+                                                : 'mdi mdi-chevron-down'
+                                        "
+                                        class="text-xl"
+                                    ></i>
+                                </span>
+                            </div>
+
+                            <div
+                                v-if="showHours"
+                                class="mt-3 text-gray-600 leading-relaxed"
+                            >
+                                <p>
+                                    Buka setiap hari pukul
+                                    <strong>07:00 — 23:00 WIB</strong>.
+                                </p>
+                                <p>
+                                    Pemesanan di luar jam operasional akan
+                                    diproses pada jam kerja.
+                                </p>
+                            </div>
                         </div>
 
                         <!-- Date Warning Alert -->
@@ -1053,7 +1113,7 @@ const nextMonth = () => {
                             </div>
 
                             <!-- Quantity -->
-                            <div>
+                            <!-- <div>
                                 <label
                                     class="block text-sm font-medium text-gray-700 mb-2"
                                 >
@@ -1083,7 +1143,7 @@ const nextMonth = () => {
                                         +
                                     </button>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <!-- Notes -->
                             <div>
